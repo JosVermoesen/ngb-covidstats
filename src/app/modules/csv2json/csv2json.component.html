@@ -1,0 +1,10 @@
+<div *ngIf="!busy">
+    <button (click)="loadCsvExampleFromAssets()" class="btn btn-primary" type="button">
+        Load and Convert
+    </button>
+</div>
+<div *ngIf="busy">
+    <button class="btn btn-primary" type="button">
+        Busy...
+    </button>
+</div>

@@ -8,6 +8,13 @@ const routes: Routes = [
       import('./modules/home/home.module').then((m) => m.HomeModule),
   },
   {
+    path: 'csv2json',
+    loadChildren: () =>
+      import('./modules/csv2json/csv2json.module').then(
+        (m) => m.Csv2JsonModule
+      ),
+  },
+  {
     path: 'corona',
     loadChildren: () =>
       import('./modules/corona/corona.module').then((m) => m.CoronaModule),

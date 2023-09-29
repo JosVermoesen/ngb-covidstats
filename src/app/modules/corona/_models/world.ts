@@ -15,3 +15,4 @@ export interface IWorld {
 }
 // https://corona.lmao.ninja/all
 // use jsontots.com to set up the model with ease!
+// https://corona.lmao.ninja/v3/covid-19/all seems not working from 2023 march
