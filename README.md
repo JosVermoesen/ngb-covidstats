@@ -6,7 +6,7 @@ Work in progress: switch to limited WHO data (cases and deaths only) when diseas
 
 https://covid19.who.int/data
 
-## Update API after 2 years
+## January 2022 API after 2 years
 
 After 2 years, the API will be updated to include more data and more features.
 Disease_stats.json is the current data.
@@ -24,7 +24,7 @@ baseUrl = 'https://disease.sh/v3/covid-19/';
 
 ## Getting started for users
 
-Live version here: [site](https://coronastats.vsoft.be)
+Our 'disease.sh' version here: [site](https://coronastats.vsoft.be)
 
 ## API Sources used for this app
 
