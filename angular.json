@@ -17,7 +17,12 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "allowedCommonJsDependencies": ["chart.js", "csvjson-csv2json"],
+            "allowedCommonJsDependencies": [
+              "chart.js",
+              "csvjson-csv2json",
+              "file-saver",
+              "jszip"
+            ],
             "outputPath": "dist/ngb-covidstats",
             "index": "src/index.html",
             "main": "src/main.ts",

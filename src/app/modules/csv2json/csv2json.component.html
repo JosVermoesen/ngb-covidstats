@@ -1,10 +1,8 @@
 <div *ngIf="!busy">
-    <button (click)="loadCsvExampleFromAssets()" class="btn btn-primary" type="button">
-        Load and Convert
-    </button>
+    <button (click)="loadCsvConvert2JsonAndSave()" class="btn btn-primary" type="button">
+        Load, convert and save cvi to json
+    </button>    
 </div>
 <div *ngIf="busy">
-    <button class="btn btn-primary" type="button">
-        Busy...
-    </button>
+    Busy{{rowsMessage}}...
 </div>
