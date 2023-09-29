@@ -4,7 +4,7 @@
 
 Work in progress: switch to limited WHO data (cases and deaths only) when disease.sh is not available.
 
-https://covid19.who.int/data
+<https://covid19.who.int/data>
 
 ## January 2022 API after 2 years
 
