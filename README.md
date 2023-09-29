@@ -1,5 +1,11 @@
 # ngb-coronastats - API demo using Angular
 
+## Friday september 29, 2023
+
+Work in progress: switch to limited WHO data (cases and deaths only) when disease.sh is not available.
+
+https://covid19.who.int/data
+
 ## Update API after 2 years
 
 After 2 years, the API will be updated to include more data and more features.
