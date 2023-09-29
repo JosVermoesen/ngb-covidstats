@@ -1,4 +1,4 @@
-# ngb-coronastats - API demo using Angular
+# ngb-covidstats - API demo using Angular
 
 ## Friday september 29, 2023
 
