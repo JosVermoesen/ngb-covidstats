@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
-import csv2json from 'csvjson-csv2json';
+import { csv2json } from 'csvjson-csv2json';
 import { saveAs } from 'file-saver';
 
 @Component({
@@ -12,7 +12,7 @@ import { saveAs } from 'file-saver';
 export class Csv2JsonComponent {
   csvContent = '';
   jsonContent = '';
-  jsonArray = [];
+  jsonArray: any[];
   busy = false;
   rowsMessage = '';
 

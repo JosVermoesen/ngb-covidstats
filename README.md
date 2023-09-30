@@ -41,7 +41,7 @@ Since 2022:
 ## Getting started for developers
 
 - [Install NodeJS](https://nodejs.org/). Hint: eventually install and use [nvm](https://medium.com/@Joachim8675309/installing-node-js-with-nvm-4dc469c977d9) for easy installing and/or switching between node versions
-- Clone this repository: `git clone https://github.com/JosVermoesen/ngb-corona`.
+- Clone this repository: `git clone https://github.com/JosVermoesen/ngb-covidstats`.
 - Run `npm install` inside the project root.
 - Run `ng serve` in a terminal from the project root.
 - Profit. :tada:
@@ -66,8 +66,14 @@ Since 2022:
 - [ngx-bootstrap](https://www.npmjs.com/package/ngx-bootstrap): `npm i ngx-bootstrap`
 - [@ngx-translate/core](https://www.npmjs.com/package/@ngx-translate/core): `npm i @ngx-translate/core`
 - [@ngx-translate/http-loader](https://www.npmjs.com/package/@ngx-translate/http-loader): `npm i @ngx-translate/http-loader`
+- [chart.js](https://www.npmjs.com/package/chart.js): `npm i chart.js`
+- [csvjson-csv2json](https://www.npmjs.com/package/csvjson-csv2json): `npm i csvjson-csv2json`
+- [file-saver](https://www.npmjs.com/package/file-saver): `npm i file-saver`
+- [@types/file-saver](https://www.npmjs.com/package/@types/file-saver): `npm i @types/file-saver`
+- [ng2-charts](https://www.npmjs.com/package/ng2-charts): `npm i ng2-charts`
 
-- install all packages in one commandline: `npm i bootstrap@4 bootswatch@4 jquery @fortawesome/angular-fontawesome @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons bootstrap-icons ngx-bootstrap @ngx-translate/core @ngx-translate/http-loader`
+- Or install all packages in one commandline: `npm i bootstrap@4 bootswatch@4 jquery @fortawesome/angular-fontawesome @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons bootstrap-icons ngx-bootstrap @ngx-translate/core @ngx-translate/http-loader chart.js csvjson-csv2json file-saver @types/file-saver ng2-charts`
+`
 
 ## file styles.css
 
