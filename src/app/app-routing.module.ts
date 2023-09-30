@@ -24,11 +24,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./modules/about/about.module').then((m) => m.AboutModule),
   },
-  /* {
+  {
     path: 'chart',
     loadChildren: () =>
       import('./modules/chart/chart.module').then((m) => m.ChartModule),
-  }, */
+  },
   { path: '**', redirectTo: 'home', pathMatch: 'full' },
 ];
 
