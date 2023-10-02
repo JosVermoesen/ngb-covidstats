@@ -2,9 +2,9 @@
 
 ## Friday september 29, 2023
 
-Work in progress: switch to limited WHO data (cases and deaths only) when disease.sh is not available.
+### [Work in progress (switch to WHO Data when disease.sh is not available)][whodata]
 
-<https://covid19.who.int/data>
+[whodata]: WHO.md
 
 ## January 2022 API after 2 years
 
@@ -41,7 +41,7 @@ Since 2022:
 ## Getting started for developers
 
 - [Install NodeJS](https://nodejs.org/). Hint: eventually install and use [nvm](https://medium.com/@Joachim8675309/installing-node-js-with-nvm-4dc469c977d9) for easy installing and/or switching between node versions
-- Clone this repository: `git clone https://github.com/JosVermoesen/ngb-covidstats`.
+- Clone this repository: `git clone https://github.com/JosVermoesen/ngb-covidstats`
 - Run `npm install` inside the project root.
 - Run `ng serve` in a terminal from the project root.
 - Profit. :tada:
@@ -73,7 +73,6 @@ Since 2022:
 - [ng2-charts](https://www.npmjs.com/package/ng2-charts): `npm i ng2-charts`
 
 - Or install all packages in one commandline: `npm i bootstrap@4 bootswatch@4 jquery @fortawesome/angular-fontawesome @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons bootstrap-icons ngx-bootstrap @ngx-translate/core @ngx-translate/http-loader chart.js csvjson-csv2json file-saver @types/file-saver ng2-charts`
-`
 
 ## file styles.css
 
@@ -136,7 +135,7 @@ Follow the instructions in the [Angular Update Guide](https://update.angular.io/
 In terminal use `npm outdated` to see what packages are requiring updates and what their current and wanted versions are.
 
 This will also show you which packages are deprecated.
-
+  
 If you want to update a package to a version newer than what is specified in your package.json, you can do so by running npm update [package-name]@[version-number].
 
 ### Use latest global Angular CLI
