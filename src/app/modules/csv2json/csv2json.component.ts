@@ -10,25 +10,27 @@ import { saveAs } from 'file-saver';
   templateUrl: './csv2json.component.html',
 })
 export class Csv2JsonComponent {
+  assetsUrl = 'assets/who-covid-19-data/import/';
   csvContent = '';
   jsonContent = '';
   jsonArray: any[];
   busy = false;
   rowsMessage = '';
 
-  // assetsUrl = 'WHO-COVID-19-BE-data';
-  // assetsUrl = 'WHO-COVID-19-DE-data';
-  // assetsUrl = 'WHO-COVID-19-FR-data';
-  // assetsUrl = 'WHO-COVID-19-GB-data';
-  // assetsUrl = 'WHO-COVID-19-NL-data';
-  assetsUrl = 'WHO-COVID-19-LU-data';
+  csvUrl = 'WHO-COVID-19-BE-data';
+  // csvUrl = 'WHO-COVID-19-DE-data';
+  // csvUrl = 'WHO-COVID-19-FR-data';
+  // csvUrl = 'WHO-COVID-19-GB-data';
+  // csvUrl = 'WHO-COVID-19-NL-data';
+  // csvUrl = 'WHO-COVID-19-LU-data';
+  // csvUrl = 'WHO-COVID-19-global-table-data';
 
   constructor(private http: HttpClient, private ts: TranslateService) {}
 
   loadCsvConvert2JsonAndSave() {
     this.busy = true;
     this.http
-      .get('assets/' + this.assetsUrl + '.csv', {
+      .get(this.assetsUrl + this.csvUrl + '.csv', {
         responseType: 'text',
       })
       .subscribe({
@@ -60,7 +62,7 @@ export class Csv2JsonComponent {
     };
 
     const blob = new Blob([this.jsonContent], { type: 'application/json' });
-    saveAs(blob, this.assetsUrl + '.json');
+    saveAs(blob, this.csvUrl + '.json');
     this.busy = false;
   }
 }
