@@ -17,13 +17,13 @@ export class Csv2JsonComponent {
   busy = false;
   rowsMessage = '';
 
-  csvUrl = 'WHO-COVID-19-BE-data';
+  // csvUrl = 'WHO-COVID-19-BE-data';
   // csvUrl = 'WHO-COVID-19-DE-data';
   // csvUrl = 'WHO-COVID-19-FR-data';
   // csvUrl = 'WHO-COVID-19-GB-data';
   // csvUrl = 'WHO-COVID-19-NL-data';
   // csvUrl = 'WHO-COVID-19-LU-data';
-  // csvUrl = 'WHO-COVID-19-global-table-data';
+  csvUrl = 'WHO-COVID-19-global-table-data';
 
   constructor(private http: HttpClient, private ts: TranslateService) {}
 
@@ -37,7 +37,7 @@ export class Csv2JsonComponent {
         next: (data) => {
           this.rowsMessage = ' converting ' + data.length + ' rows';
           this.csvContent = data;
-          this.jsonArray = csv2json(this.csvContent);
+          this.jsonArray = csv2json(this.csvContent, { parseNumbers: true });
         },
         error: (error) => {
           console.error('There was an error!', error);

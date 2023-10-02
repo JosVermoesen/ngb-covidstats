@@ -148,8 +148,8 @@ export class WhoCovidComponent implements OnInit {
 
   getGlobalNumbers() {
     this.apiWaiting = true;
-    const corona = this.cs.getGlobal();
-    corona.subscribe(
+    const covidGlobal = this.cs.getGlobalTableData();
+    /* corona.subscribe(
       (data: IWorld) => {
         this.coronaGlobalNumbers = data;
         // console.log(this.coronaGlobalNumbers);
@@ -162,7 +162,7 @@ export class WhoCovidComponent implements OnInit {
         this.apiWaiting = false;
         this.apiError = true;
       }
-    );
+    ); */
   }
 
   getCountryDetails(indexInList: number) {
