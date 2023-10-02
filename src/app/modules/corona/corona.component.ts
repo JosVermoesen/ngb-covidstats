@@ -80,6 +80,7 @@ export class CoronaComponent implements OnInit {
   constructor(private cs: CoronaService, private ts: TranslateService) {}
 
   ngOnInit(): void {
+    console.log('ok');
     this.getGlobalNumbers();
   }
 
@@ -120,6 +121,7 @@ export class CoronaComponent implements OnInit {
     countries.subscribe(
       (data: ICountry[]) => {
         this.coronaCountries = data;
+        // console.log(JSON.stringify(this.coronaCountries));
         this.preferdCountry = localStorage.getItem(
           'coronaApi_DefaultCountryName'
         );
@@ -148,11 +150,11 @@ export class CoronaComponent implements OnInit {
 
   getGlobalNumbers() {
     this.apiWaiting = true;
-    const corona = this.cs.getGlobal();
+    const corona = this.cs.getGlobal();    
     corona.subscribe(
       (data: IWorld) => {
-        this.coronaGlobalNumbers = data;
-        // console.log(this.coronaGlobalNumbers);
+        this.coronaGlobalNumbers = data;        
+        // console.log(JSON.stringify(this.coronaGlobalNumbers));
         this.globalLastUpdate = new Date(this.coronaGlobalNumbers.updated);
         this.getAllCountries();
         this.apiWaiting = false;
@@ -180,6 +182,7 @@ export class CoronaComponent implements OnInit {
     historical.subscribe(
       (data: ICountryHistorical) => {
         this.countryHistorical = data;
+        // console.log(JSON.stringify(this.countryHistorical));
         this.prepareGraph();
       },
       (err) => {

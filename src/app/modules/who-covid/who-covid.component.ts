@@ -80,6 +80,7 @@ export class WhoCovidComponent implements OnInit {
   constructor(private cs: WhoCovidService, private ts: TranslateService) {}
 
   ngOnInit(): void {
+    console.log('yes');
     this.getGlobalNumbers();
   }
 
@@ -149,6 +150,7 @@ export class WhoCovidComponent implements OnInit {
   getGlobalNumbers() {
     this.apiWaiting = true;
     const covidGlobal = this.cs.getGlobalTableData();
+    console.log(covidGlobal);
     /* corona.subscribe(
       (data: IWorld) => {
         this.coronaGlobalNumbers = data;
