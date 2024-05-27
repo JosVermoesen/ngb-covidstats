@@ -5,6 +5,7 @@
 ### [Work in progress (switch to WHO Data when disease.sh is not available)][whodata]
 
 [whodata]: WHO.md
+Daily updates: [https://github.com/owid/covid-19-data]
 
 ## January 2022 API after 2 years
 
