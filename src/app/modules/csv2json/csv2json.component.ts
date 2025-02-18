@@ -4,10 +4,13 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { csv2json } from 'csvjson-csv2json';
 import { saveAs } from 'file-saver';
+import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-csv2json',
-  templateUrl: './csv2json.component.html',
+    selector: 'app-csv2json',
+    templateUrl: './csv2json.component.html',
+    standalone: true,
+    imports: [NgIf],
 })
 export class Csv2JsonComponent {
   assetsUrl = 'assets/who-covid-19-data/import/';

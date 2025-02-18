@@ -14,19 +14,17 @@ import { MyRadarChartComponent } from './my-radar-chart/my-radar-chart.component
 import { MyDoughnutChartComponent } from './my-doughnut-chart/my-doughnut-chart.component';
 
 @NgModule({
-  declarations: [
-    ChartComponent,
-    MyLineChartComponent,
-    MyBarChartComponent,
-    MyDoughnutChartComponent,
-    MyRadarChartComponent,
-    MyPieChartComponent,
-  ],
-  imports: [
-    CommonModule,
-    ChartRoutingModule,
-    NgChartsModule,
-    TabsModule.forRoot(),
-  ],
+    imports: [
+        CommonModule,
+        ChartRoutingModule,
+        NgChartsModule,
+        TabsModule.forRoot(),
+        ChartComponent,
+        MyLineChartComponent,
+        MyBarChartComponent,
+        MyDoughnutChartComponent,
+        MyRadarChartComponent,
+        MyPieChartComponent,
+    ],
 })
 export class ChartModule {}

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { TranslateService } from '@ngx-translate/core';
-import { TabDirective } from 'ngx-bootstrap/tabs';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { TabDirective, TabsModule } from 'ngx-bootstrap/tabs';
 import { faSpinner, faThumbtack } from '@fortawesome/free-solid-svg-icons';
 
 import { CoronaService } from './corona.service';
@@ -11,6 +11,9 @@ import { IDayData } from './_models/dayData';
 import { ITimeline } from './_models/timeline';
 import { IWorld } from './_models/world';
 import { environment } from '../../../environments/environment';
+import { NgChartsModule } from 'ng2-charts';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { NgIf, NgFor } from '@angular/common';
 
 function setSelectedIndex(s, v: string) {
   // tslint:disable-next-line: prefer-for-of
@@ -24,9 +27,18 @@ function setSelectedIndex(s, v: string) {
 }
 
 @Component({
-  selector: 'app-corona',
-  templateUrl: './corona.component.html',
-  styleUrls: ['./corona.component.scss'],
+    selector: 'app-corona',
+    templateUrl: './corona.component.html',
+    styleUrls: ['./corona.component.scss'],
+    standalone: true,
+    imports: [
+        TabsModule,
+        NgIf,
+        FaIconComponent,
+        NgFor,
+        NgChartsModule,
+        TranslateModule,
+    ],
 })
 export class CoronaComponent implements OnInit {
   faSpinner = faSpinner;

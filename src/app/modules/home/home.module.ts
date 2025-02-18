@@ -15,19 +15,19 @@ import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 
 @NgModule({
-  declarations: [HomeComponent],
-  imports: [
-    CommonModule,
-    HomeRoutingModule,
-    CarouselModule.forRoot(),
-    TranslateModule.forChild({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: createTranslateLoader,
-        deps: [HttpClient],
-      },
-    }),
-    FontAwesomeModule,
-  ],
+    imports: [
+        CommonModule,
+        HomeRoutingModule,
+        CarouselModule.forRoot(),
+        TranslateModule.forChild({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: createTranslateLoader,
+                deps: [HttpClient],
+            },
+        }),
+        FontAwesomeModule,
+        HomeComponent,
+    ],
 })
 export class HomeModule {}

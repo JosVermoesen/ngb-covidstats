@@ -3,11 +3,14 @@ import { Subject } from 'rxjs';
 
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { LanguageService } from '../../language.service';
+import { NgFor, NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-language',
-  templateUrl: './language.component.html',
-  styleUrls: ['./language.component.css'],
+    selector: 'app-language',
+    templateUrl: './language.component.html',
+    styleUrls: ['./language.component.css'],
+    standalone: true,
+    imports: [NgFor, NgIf],
 })
 export class LanguageComponent implements OnInit {
   title='';

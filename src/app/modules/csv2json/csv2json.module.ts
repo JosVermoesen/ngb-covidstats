@@ -12,17 +12,17 @@ import { Csv2JsonRoutingModule } from './csv2json-routing.module';
 import { Csv2JsonComponent } from './csv2json.component';
 
 @NgModule({
-  declarations: [Csv2JsonComponent],
-  imports: [
-    CommonModule,
-    Csv2JsonRoutingModule,
-    TranslateModule.forChild({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: createTranslateLoader,
-        deps: [HttpClient],
-      },
-    }),
-  ],
+    imports: [
+        CommonModule,
+        Csv2JsonRoutingModule,
+        TranslateModule.forChild({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: createTranslateLoader,
+                deps: [HttpClient],
+            },
+        }),
+        Csv2JsonComponent,
+    ],
 })
 export class Csv2JsonModule {}

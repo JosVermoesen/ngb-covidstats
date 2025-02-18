@@ -22,35 +22,4 @@ import { LanguageComponent } from './global/navbar/language/language.component';
 import { FooterComponent } from './global/footer/footer.component';
 import { NavbarComponent } from './global/navbar/navbar.component';
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    LanguageComponent,
-    NavbarComponent,
-    FooterComponent,
-  ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    CarouselModule.forRoot(),
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: createTranslateLoader,
-        deps: [HttpClient],
-      },
-    }),
-    ModalModule.forRoot(),
-    FontAwesomeModule,
-    AppRoutingModule,
-  ],
-  providers: [
-    LanguageService,
-    BsModalRef,
-    { provide: LocationStrategy, useClass: HashLocationStrategy },
-  ],
-  // entryComponents: [LanguageComponent],
-  bootstrap: [AppComponent],
-})
-export class AppModule {}
+

@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
+import { NgChartsModule } from 'ng2-charts';
 
 @Component({
-  selector: 'app-my-line-chart',
-  templateUrl: './my-line-chart.component.html',
-  styleUrls: ['./my-line-chart.component.css'],
+    selector: 'app-my-line-chart',
+    templateUrl: './my-line-chart.component.html',
+    styleUrls: ['./my-line-chart.component.css'],
+    standalone: true,
+    imports: [NgChartsModule],
 })
 export class MyLineChartComponent {
   public lineChartOptions = {

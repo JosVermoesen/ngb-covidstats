@@ -122,16 +122,26 @@ Before building, set resolveJsonModule to 'true' :
 
 - Ex. corona module: `ng generate module modules/corona --route corona --module app.module`
 
-### update app to latest Angular 16
-
-This app is on Angular 16. Update to latest Angular 16:
-`ng update @angular/cli@16 @angular/core@16`
-
-### update from older Angular versions to the latest
+## Angular 17.0.0 refactoring tools
 
 Follow the instructions in the [Angular Update Guide](https://update.angular.io/) to fix your app.
 
-#### npm outdated
+### standalone components
+
+You can switch older Angular programs to standalone with `ng generate @angular/core:standalone`
+
+There are 3 options to refactor your code:
+
+- `ng generate @angular/core:standalone-components-migration`
+- `ng generate @angular/core:standalone-directives-migration`
+- `ng generate @angular/core:standalone-pipes-migration`
+
+## update app to latest Angular 17
+
+This app is on Angular 17. Update to latest Angular 17:
+`ng update @angular/cli@17 @angular/core@17`
+
+### npm outdated
 
 In terminal use `npm outdated` to see what packages are requiring updates and what their current and wanted versions are.
 

@@ -18,22 +18,22 @@ import { CoronaComponent } from './corona.component';
 import { SharedModule } from '../shared.module';
 
 @NgModule({
-  declarations: [CoronaComponent],
-  imports: [
-    CommonModule,
-    SharedModule.forRoot(),
-    TranslateModule.forChild({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: createTranslateLoader,
-        deps: [HttpClient],
-      },
-    }),
-    FontAwesomeModule,
-    TabsModule.forRoot(),
-    NgChartsModule,
-    CoronaRoutingModule,
-  ],
-  providers: [CoronaService],
+    imports: [
+        CommonModule,
+        SharedModule.forRoot(),
+        TranslateModule.forChild({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: createTranslateLoader,
+                deps: [HttpClient],
+            },
+        }),
+        FontAwesomeModule,
+        TabsModule.forRoot(),
+        NgChartsModule,
+        CoronaRoutingModule,
+        CoronaComponent,
+    ],
+    providers: [CoronaService],
 })
 export class CoronaModule {}
