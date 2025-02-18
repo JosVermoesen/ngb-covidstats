@@ -68,10 +68,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "ngb-covidstats:build:production"
+              "buildTarget": "ngb-covidstats:build:production"
             },
             "development": {
-              "browserTarget": "ngb-covidstats:build:development"
+              "buildTarget": "ngb-covidstats:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -79,7 +79,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ngb-covidstats:build"
+            "buildTarget": "ngb-covidstats:build"
           }
         },
         "test": {
