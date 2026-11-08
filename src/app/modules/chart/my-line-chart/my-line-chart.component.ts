@@ -1,11 +1,11 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-    selector: 'app-my-line-chart',
-    templateUrl: './my-line-chart.component.html',
-    styleUrls: ['./my-line-chart.component.css'],
-    changeDetection: ChangeDetectionStrategy.Eager,
-    standalone: false
+  selector: 'app-my-line-chart',
+  templateUrl: './my-line-chart.component.html',
+  styleUrls: ['./my-line-chart.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class MyLineChartComponent {
   public lineChartOptions = {

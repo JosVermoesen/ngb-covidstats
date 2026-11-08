@@ -1,11 +1,11 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-    selector: 'app-my-radar-chart',
-    templateUrl: './my-radar-chart.component.html',
-    styleUrls: ['./my-radar-chart.component.css'],
-    changeDetection: ChangeDetectionStrategy.Eager,
-    standalone: false
+  selector: 'app-my-radar-chart',
+  templateUrl: './my-radar-chart.component.html',
+  styleUrls: ['./my-radar-chart.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class MyRadarChartComponent {
   public radarChartLabels = ['Q1', 'Q2', 'Q3', 'Q4'];

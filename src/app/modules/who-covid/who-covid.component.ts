@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, OnInit, ChangeDetectionStrategy, signal } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { TabDirective } from 'ngx-bootstrap/tabs';
 import { faSpinner, faThumbtack } from '@fortawesome/free-solid-svg-icons';
@@ -8,252 +7,196 @@ import { WhoCovidService } from './who-covid.service';
 import { ICountry } from './_models/country';
 import { ICountryHistorical } from './_models/countryHistorical';
 import { IDayData } from './_models/dayData';
-import { ITimeline } from './_models/timeline';
 import { IWorld } from './_models/world';
 import { environment } from '../../../environments/environment';
-
-function setSelectedIndex(s, v: string) {
-  // tslint:disable-next-line: prefer-for-of
-  for (let i = 0; i < s.options.length; i++) {
-    if (s.options[i].text === v) {
-      s.options[i].selected = true;
-      console.log('found: ' + s.options[i].text);
-      return;
-    }
-  }
-}
 
 @Component({
   selector: 'app-who-covid',
   templateUrl: './who-covid.component.html',
   styleUrls: ['./who-covid.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class WhoCovidComponent implements OnInit {
   faSpinner = faSpinner;
   faPin = faThumbtack;
 
-  apiWaiting = true;
-  apiError = false;
-  evalAvailable = false;
+  apiWaiting = signal(true);
+  apiError = signal(false);
+  evalAvailable = signal(false);
 
   evalDays = environment.daysEval;
 
-  preferdCountry: string;
-  preferdIsRefreshed = false;
-  selectedCountryName: string;
-  selectedCountryIndex: number;
+  coronaCountries = signal<ICountry[]>([]);
+  coronaCountry = signal<ICountry | null>(null);
+  coronaGlobalNumbers = signal<IWorld | null>(null);
+  countryHistorical = signal<ICountryHistorical | null>(null);
 
-  public coronaChartOptions = {
+  selectedCountryName = signal('');
+  selectedCountryIndex = signal(0);
+  preferdCountry = signal('');
+  preferdIsRefreshed = signal(false);
+
+  coronaChartOptions = {
     scaleShowVerticalLines: false,
     responsive: true,
   };
 
-  coronaChartData: unknown;
-  coronaEvalChartData: unknown;
+  coronaChartData = signal<any>(null);
+  coronaEvalChartData = signal<any>(null);
+  coronaChartLabels = signal<string[]>([]);
+  coronaChartType = 'line';
+  coronaChartLegend = true;
 
-  coronaGlobalNumbers: IWorld;
-  coronaCountries: ICountry[];
-  coronaCountry: ICountry;
-  countryHistorical: ICountryHistorical;
+  countryCases = signal<IDayData[]>([]);
+  countryDeaths = signal<IDayData[]>([]);
+  countryRecovered = signal<IDayData[]>([]);
 
-  countryTimeline: ITimeline;
+  countryCasesOnDay = signal<number[]>([]);
+  countryDeathsOnDay = signal<number[]>([]);
 
-  public coronaChartLabels: string[];
-  public coronaChartType = 'line';
-  public coronaChartLegend = true;
+  globalLastUpdate = signal<Date | null>(null);
+  countryLastUpdate = signal<Date | null>(null);
 
-  countryCases: IDayData[];
-  countryDeaths: IDayData[];
-  countryRecovered: IDayData[];
-
-  countryCasesOnDay: number[] = [];
-  countryDeathsOnDay: number[] = [];
-  countryRecoveredOnDay: number[] = [];
-
-  globalLastUpdate: unknown;
-  countryLastUpdate: unknown;
-
-  graphLabel1: string;
-  graphLabel2: string;
-  // graphLabel3: string;
+  graphLabel1 = signal('');
+  graphLabel2 = signal('');
 
   constructor(private cs: WhoCovidService, private ts: TranslateService) {}
 
   ngOnInit(): void {
-    console.log('yes');
     this.getGlobalNumbers();
   }
 
   onSelect(data: TabDirective): void {
-    this.evalAvailable = false;
+    this.evalAvailable.set(false);
     if (data.id === 'status') {
-      if (this.preferdCountry !== '') {
-        if (!this.preferdIsRefreshed) {
-          setSelectedIndex(
-            document.getElementById('thisCountry'),
-            this.preferdCountry
-          );
-          this.preferdIsRefreshed = true;
+      if (this.preferdCountry() !== '') {
+        if (!this.preferdIsRefreshed()) {
+          this.preferdIsRefreshed.set(true);
         }
       }
-    } else {
-      if (data.id === 'graph') {
-        this.prepareEvalGraph();
-      }
+    } else if (data.id === 'graph') {
+      this.prepareEvalGraph();
     }
   }
 
   setDefaultCountry() {
-    // Add to local storage
-    localStorage.setItem(
-      'coronaApi_DefaultCountryName',
-      this.selectedCountryName
-    );
-    localStorage.setItem(
-      'coronaApi_DefaultCountryIndex',
-      this.selectedCountryIndex.toString()
-    );
+    localStorage.setItem('coronaApi_DefaultCountryName', this.selectedCountryName());
+    localStorage.setItem('coronaApi_DefaultCountryIndex', this.selectedCountryIndex().toString());
   }
 
   getAllCountries() {
-    this.apiWaiting = true;
-    const countries = this.cs.getAllCountries();
-    countries.subscribe(
-      (data: ICountry[]) => {
-        this.coronaCountries = data;
-        this.preferdCountry = localStorage.getItem(
-          'coronaApi_DefaultCountryName'
-        );
-        const tmpCountryIndex = +localStorage.getItem(
-          'coronaApi_DefaultCountryIndex'
-        );
+    this.apiWaiting.set(true);
+    this.cs.getAllCountries().subscribe({
+      next: (data: ICountry[]) => {
+        this.coronaCountries.set(data);
+        const savedCountry = localStorage.getItem('coronaApi_DefaultCountryName');
+        const savedIndex = +(localStorage.getItem('coronaApi_DefaultCountryIndex') || '0');
 
-        if (this.preferdCountry) {
-          this.selectedCountryName = this.preferdCountry;
-          this.getCountryDetails(tmpCountryIndex);
-          this.getHistory(this.preferdCountry);
+        this.preferdCountry.set(savedCountry || '');
+
+        if (savedCountry) {
+          this.selectedCountryName.set(savedCountry);
+          this.getCountryDetails(savedIndex);
+          this.getHistory(savedCountry);
         } else {
           this.getCountryDetails(0);
         }
-
-        this.apiWaiting = false;
-        // console.log(this.coronaCountries);
+        this.apiWaiting.set(false);
       },
-      (err) => {
-        console.log(err);
-        this.apiWaiting = false;
-        this.apiError = true;
-      }
-    );
+      error: (err) => {
+        console.error(err);
+        this.apiWaiting.set(false);
+        this.apiError.set(true);
+      },
+    });
   }
 
   getGlobalNumbers() {
-    this.apiWaiting = true;
-    const covidGlobal = this.cs.getGlobalTableData();
-    console.log(covidGlobal);
-    /* corona.subscribe(
-      (data: IWorld) => {
-        this.coronaGlobalNumbers = data;
-        // console.log(this.coronaGlobalNumbers);
-        this.globalLastUpdate = new Date(this.coronaGlobalNumbers.updated);
+    this.apiWaiting.set(true);
+    this.cs.getGlobalTableData().subscribe({
+      next: (data) => {
+        console.log('WHO Global Data:', data);
         this.getAllCountries();
-        this.apiWaiting = false;
+        this.apiWaiting.set(false);
       },
-      (err) => {
-        console.log(err);
-        this.apiWaiting = false;
-        this.apiError = true;
-      }
-    ); */
+      error: (err) => {
+        console.error(err);
+        this.apiWaiting.set(false);
+        this.apiError.set(true);
+      },
+    });
   }
 
   getCountryDetails(indexInList: number) {
-    this.countryHistorical = null;
-    if (this.coronaCountries) {
-      this.coronaCountry = this.coronaCountries[indexInList];
-      this.selectedCountryName = this.coronaCountry.country;
-      this.selectedCountryIndex = indexInList;
-      this.countryLastUpdate = new Date(this.coronaCountry.updated);
+    this.countryHistorical.set(null);
+    const countries = this.coronaCountries();
+    if (countries && countries.length > 0) {
+      const country = countries[indexInList];
+      this.coronaCountry.set(country);
+      this.selectedCountryName.set(country.country);
+      this.selectedCountryIndex.set(indexInList);
+      this.countryLastUpdate.set(new Date(country.updated));
     }
   }
 
   getHistory(country: string) {
-    const historical = this.cs.getCountryHistorical(country, this.evalDays);
-    historical.subscribe(
-      (data: ICountryHistorical) => {
-        this.countryHistorical = data;
+    this.cs.getCountryHistorical(country, this.evalDays).subscribe({
+      next: (data: ICountryHistorical) => {
+        this.countryHistorical.set(data);
         this.prepareGraph();
       },
-      (err) => {
-        console.log(err);
-        this.coronaGlobalNumbers = null;
-        this.apiError = true;
-      }
-    );
+      error: (err) => {
+        console.error(err);
+        this.coronaGlobalNumbers.set(null);
+        this.apiError.set(true);
+      },
+    });
   }
 
   prepareGraph() {
-    this.countryCases = Object.values(this.countryHistorical.timeline.cases);
-    this.countryRecovered = Object.values(
-      this.countryHistorical.timeline.recovered
-    );
-    this.countryDeaths = Object.values(this.countryHistorical.timeline.deaths);
+    const historical = this.countryHistorical();
+    if (!historical) return;
+
+    this.countryCases.set(Object.values(historical.timeline.cases));
+    this.countryRecovered.set(Object.values(historical.timeline.recovered));
+    this.countryDeaths.set(Object.values(historical.timeline.deaths));
 
     this.ts.get('CORONA.GraphLabel1').subscribe((res: string) => {
-      this.graphLabel1 = res;
+      this.graphLabel1.set(res);
     });
     this.ts.get('CORONA.GraphLabel2').subscribe((res: string) => {
-      this.graphLabel2 = res;
+      this.graphLabel2.set(res);
     });
-    /* this.ts.get('CORONA.GraphLabel3').subscribe((res: string) => {
-      this.graphLabel3 = res;
-    }); */
 
-    this.coronaChartData = [
-      { data: this.countryCases, label: this.graphLabel1 },
-      { data: this.countryDeaths, label: this.graphLabel2 },
-      // { data: this.countryRecovered, label: this.graphLabel3 },
-    ];
-    this.coronaChartLabels = Object.keys(this.countryHistorical.timeline.cases);
-
-    console.log(this.countryDeaths[this.countryDeaths.length - 1]);
-    // console.log('Deathssum last 150 days till yesterday: ', this.countryDeaths);
+    this.coronaChartData.set([
+      { data: this.countryCases(), label: this.graphLabel1() },
+      { data: this.countryDeaths(), label: this.graphLabel2() },
+    ]);
+    this.coronaChartLabels.set(Object.keys(historical.timeline.cases));
   }
 
   prepareEvalGraph() {
-    let casesCounter = 0;
-    while (casesCounter < this.countryCases.length - 2) {
-      const valueCases1 = Number(this.countryCases[casesCounter]);
-      const valueCases2 = Number(this.countryCases[casesCounter + 1]);
-      const valueCases3 = valueCases2 - valueCases1;
-      this.countryCasesOnDay.push(valueCases3);
-      casesCounter++;
+    const cases = this.countryCases();
+    const deaths = this.countryDeaths();
+
+    const casesOnDay: number[] = [];
+    for (let i = 0; i < cases.length - 2; i++) {
+      casesOnDay.push(Number(cases[i + 1]) - Number(cases[i]));
     }
 
-    let deathCounter = 0;
-    while (deathCounter < this.countryDeaths.length - 2) {
-      const valueDeaths1 = Number(this.countryDeaths[deathCounter]);
-      const valueDeaths2 = Number(this.countryDeaths[deathCounter + 1]);
-      const valueDeaths3 = valueDeaths2 - valueDeaths1;
-      this.countryDeathsOnDay.push(valueDeaths3);
-      deathCounter++;
+    const deathsOnDay: number[] = [];
+    for (let i = 0; i < deaths.length - 2; i++) {
+      deathsOnDay.push(Number(deaths[i + 1]) - Number(deaths[i]));
     }
 
-    /* let recoveredCounter = 0;
-    while (recoveredCounter < this.countryRecovered.length - 2) {
-      const valueRecovered1 = Number(this.countryRecovered[recoveredCounter]);
-      const valueRecovered2 = Number(this.countryRecovered[recoveredCounter + 1]);
-      const valueRecovered3 = valueRecovered2 - valueRecovered1;
-      this.countryRecoveredOnDay.push(valueRecovered3)
-      recoveredCounter++;
-    } */
+    this.countryCasesOnDay.set(casesOnDay);
+    this.countryDeathsOnDay.set(deathsOnDay);
 
-    this.coronaEvalChartData = [
-      { data: this.countryCasesOnDay, label: this.graphLabel1 },
-      { data: this.countryDeathsOnDay, label: this.graphLabel2 },
-      // { data: this.countryRecoveredOnDay, label: this.graphLabel3 }
-    ];
-    this.coronaChartLabels = Object.keys(this.countryHistorical.timeline.cases);
-    this.evalAvailable = true;
+    this.coronaEvalChartData.set([
+      { data: casesOnDay, label: this.graphLabel1() },
+      { data: deathsOnDay, label: this.graphLabel2() },
+    ]);
+    this.evalAvailable.set(true);
   }
 }

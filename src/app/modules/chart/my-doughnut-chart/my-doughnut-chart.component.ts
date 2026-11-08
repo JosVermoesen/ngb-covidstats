@@ -1,11 +1,11 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-    selector: 'app-my-doughnut-chart',
-    templateUrl: './my-doughnut-chart.component.html',
-    styleUrls: ['./my-doughnut-chart.component.css'],
-    changeDetection: ChangeDetectionStrategy.Eager,
-    standalone: false
+  selector: 'app-my-doughnut-chart',
+  templateUrl: './my-doughnut-chart.component.html',
+  styleUrls: ['./my-doughnut-chart.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class MyDoughnutChartComponent {
   public doughnutChartLabels = ['Sales Q1', 'Sales Q2', 'Sales Q3', 'Sales Q4'];

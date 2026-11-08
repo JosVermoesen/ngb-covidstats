@@ -4,15 +4,15 @@ import { HttpClient } from '@angular/common/http';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-export function createTranslateLoader(http: HttpClient) {
-  return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
-}
-
-import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { CarouselModule, CarouselConfig } from 'ngx-bootstrap/carousel';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
+
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
+}
 
 @NgModule({
   declarations: [HomeComponent],
@@ -20,6 +20,7 @@ import { HomeComponent } from './home.component';
     CommonModule,
     HomeRoutingModule,
     CarouselModule,
+    FontAwesomeModule,
     TranslateModule.forChild({
       loader: {
         provide: TranslateLoader,
@@ -27,7 +28,12 @@ import { HomeComponent } from './home.component';
         deps: [HttpClient],
       },
     }),
-    FontAwesomeModule,
+  ],
+  providers: [
+    {
+      provide: CarouselConfig,
+      useValue: { interval: 2000, noPause: true, showIndicators: true },
+    },
   ],
 })
 export class HomeModule {}

@@ -20,6 +20,11 @@ const routes: Routes = [
       import('./modules/corona/corona.module').then((m) => m.CoronaModule),
   },
   {
+    path: 'who-covid',
+    loadChildren: () =>
+      import('./modules/who-covid/who-covid.module').then((m) => m.WhoCovidModule),
+  },
+  {
     path: 'about',
     loadChildren: () =>
       import('./modules/about/about.module').then((m) => m.AboutModule),
@@ -29,6 +34,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./modules/chart/chart.module').then((m) => m.ChartModule),
   },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '**', redirectTo: 'home', pathMatch: 'full' },
 ];
 

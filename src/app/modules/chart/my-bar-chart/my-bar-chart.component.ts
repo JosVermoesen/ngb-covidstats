@@ -1,11 +1,11 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-    selector: 'app-my-bar-chart',
-    templateUrl: './my-bar-chart.component.html',
-    styleUrls: ['./my-bar-chart.component.css'],
-    changeDetection: ChangeDetectionStrategy.Eager,
-    standalone: false
+  selector: 'app-my-bar-chart',
+  templateUrl: './my-bar-chart.component.html',
+  styleUrls: ['./my-bar-chart.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class MyBarChartComponent {
   public barChartOptions = {

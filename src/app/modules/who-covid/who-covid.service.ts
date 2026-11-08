@@ -9,29 +9,17 @@ import { GlobalTableData } from './_models/globaltabledata';
 
 @Injectable()
 export class WhoCovidService {
-  // till 2022: baseUrl = 'https://corona.lmao.ninja/v2/';
   baseUrl = 'https://disease.sh/v3/covid-19/';
   globalTableUrl = '';
 
   constructor(private csHttp: HttpClient) {}
 
-  getGlobalTableData() {
-    this.csHttp
-      .get<GlobalTableData>(this.globalTableUrl, {
-        responseType: 'json',
-      })
-      .subscribe({
-        next: (data) => {
-          return data;
-        },
-        error: (error) => {
-          return 'There was an error!';
-        },
-        complete: () => {
-          console.log('completed');
-        },
-      });
+  getGlobalTableData(): Observable<GlobalTableData> {
+    return this.csHttp.get<GlobalTableData>(this.globalTableUrl, {
+      responseType: 'json',
+    });
   }
+
   getGlobal(): Observable<IWorld> {
     return this.csHttp.get<IWorld>(this.baseUrl + 'all');
   }

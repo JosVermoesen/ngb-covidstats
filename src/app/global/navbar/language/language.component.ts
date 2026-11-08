@@ -1,42 +1,33 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Subject } from 'rxjs';
-
+import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { LanguageService } from '../../language.service';
 
 @Component({
-    selector: 'app-language',
-    templateUrl: './language.component.html',
-    styleUrls: ['./language.component.css'],
-    changeDetection: ChangeDetectionStrategy.Eager,
-    standalone: false
+  selector: 'app-language',
+  templateUrl: './language.component.html',
+  styleUrls: ['./language.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class LanguageComponent implements OnInit {
-  title='';
-  closeBtnName='';
+  @Input() title = '';
+  @Input() closeBtnName = '';
 
-  languages = [] as any;
+  languages: any[] = [];
   selected = '';
-
-  public onSelected!: Subject<boolean>;
 
   constructor(
     public bsModalRef: BsModalRef,
     private languageService: LanguageService
   ) {}
 
-  public ngOnInit(): void {
-    this.onSelected = new Subject() ;
+  ngOnInit(): void {
     this.languages = this.languageService.getLanguages();
-    this.selected = this.languageService.selected;
+    this.selected = this.languageService.selected();
   }
 
-  select(lng : string) {
+  select(lng: string) {
     this.languageService.setLanguage(lng);
-    // this.saveSettings();
-    // this.popoverCtrl.dismiss();
-
-    this.onSelected.next(true) ;
     this.bsModalRef.hide();
   }
 }
