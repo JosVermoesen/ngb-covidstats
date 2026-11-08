@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClient, provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -16,41 +16,36 @@ export function createTranslateLoader(http: HttpClient) {
 import { ModalModule, BsModalRef } from 'ngx-bootstrap/modal';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 
 import { LanguageService } from './global/language.service';
 import { LanguageComponent } from './global/navbar/language/language.component';
 import { FooterComponent } from './global/footer/footer.component';
 import { NavbarComponent } from './global/navbar/navbar.component';
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    LanguageComponent,
-    NavbarComponent,
-    FooterComponent,
-  ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    CarouselModule.forRoot(),
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: createTranslateLoader,
-        deps: [HttpClient],
-      },
-    }),
-    ModalModule.forRoot(),
-    FontAwesomeModule,
-    AppRoutingModule,
-  ],
-  providers: [
-    LanguageService,
-    BsModalRef,
-    { provide: LocationStrategy, useClass: HashLocationStrategy },
-  ],
-  // entryComponents: [LanguageComponent],
-  bootstrap: [AppComponent],
-})
+@NgModule({ declarations: [
+        AppComponent,
+        LanguageComponent,
+        NavbarComponent,
+        FooterComponent,
+    ],
+    // entryComponents: [LanguageComponent],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        BrowserAnimationsModule,
+    CarouselModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: createTranslateLoader,
+                deps: [HttpClient],
+            },
+        }),
+    ModalModule,
+        FontAwesomeModule,        AppRoutingModule], providers: [
+        LanguageService,
+        BsModalRef,
+        provideCharts(withDefaultRegisterables()),
+        { provide: LocationStrategy, useClass: HashLocationStrategy },
+        provideHttpClient(withXhr(), withInterceptorsFromDi()),
+    ] })
 export class AppModule {}

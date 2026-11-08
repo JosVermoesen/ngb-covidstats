@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Subject } from 'rxjs';
 
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { LanguageService } from '../../language.service';
 
 @Component({
-  selector: 'app-language',
-  templateUrl: './language.component.html',
-  styleUrls: ['./language.component.css'],
+    selector: 'app-language',
+    templateUrl: './language.component.html',
+    styleUrls: ['./language.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class LanguageComponent implements OnInit {
   title='';

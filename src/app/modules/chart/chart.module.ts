@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { NgChartsModule } from 'ng2-charts';
+import { BaseChartDirective } from 'ng2-charts';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 
 import { ChartRoutingModule } from './chart-routing.module';
@@ -25,8 +25,8 @@ import { MyDoughnutChartComponent } from './my-doughnut-chart/my-doughnut-chart.
   imports: [
     CommonModule,
     ChartRoutingModule,
-    NgChartsModule,
-    TabsModule.forRoot(),
+    BaseChartDirective,
+    TabsModule,
   ],
 })
 export class ChartModule {}

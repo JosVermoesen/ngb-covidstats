@@ -19,7 +19,7 @@ import { HomeComponent } from './home.component';
   imports: [
     CommonModule,
     HomeRoutingModule,
-    CarouselModule.forRoot(),
+    CarouselModule,
     TranslateModule.forChild({
       loader: {
         provide: TranslateLoader,

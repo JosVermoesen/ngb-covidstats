@@ -5,27 +5,30 @@
     class="close pull-right"
     aria-label="Close"
     (click)="bsModalRef.hide()"
-  >
+    >
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
 
 <div class="modal-body">
-  <ul
-    class="list-unstyled"
-    *ngFor="let lng of languages"
-    (click)="select(lng.value)"
-  >
-    <div *ngIf="lng.enabled">
-      <li class="media">
-        <img [src]="lng.img" class="mr-2 img-thumbnail" alt="lng.text" />
-        <div class="media-body">
-          <h5 class="mt-0 mb-1">{{ lng.text }}</h5>
-          {{ lng.subtext }}
+  @for (lng of languages; track lng) {
+    <ul
+      class="list-unstyled"
+      (click)="select(lng.value)"
+      >
+      @if (lng.enabled) {
+        <div>
+          <li class="media">
+            <img [src]="lng.img" class="mr-2 img-thumbnail" alt="lng.text" />
+            <div class="media-body">
+              <h5 class="mt-0 mb-1">{{ lng.text }}</h5>
+              {{ lng.subtext }}
+            </div>
+          </li>
         </div>
-      </li>
-    </div>
-  </ul>
+      }
+    </ul>
+  }
 </div>
 
 <div class="modal-footer">

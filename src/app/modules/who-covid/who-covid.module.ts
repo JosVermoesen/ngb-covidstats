@@ -9,7 +9,7 @@ export function createTranslateLoader(http: HttpClient) {
 }
 
 import { TabsModule } from 'ngx-bootstrap/tabs';
-import { NgChartsModule } from 'ng2-charts';
+import { BaseChartDirective } from 'ng2-charts';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { WhoCovidService } from './who-covid.service';
@@ -30,8 +30,8 @@ import { SharedModule } from '../shared.module';
       },
     }),
     FontAwesomeModule,
-    TabsModule.forRoot(),
-    NgChartsModule,
+    TabsModule,
+    BaseChartDirective,
     WhoCovidRoutingModule,
   ],
   providers: [WhoCovidService],

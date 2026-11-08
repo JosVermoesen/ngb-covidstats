@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 import { TranslateService } from '@ngx-translate/core';
 import { TabDirective } from 'ngx-bootstrap/tabs';
@@ -24,9 +24,11 @@ function setSelectedIndex(s, v: string) {
 }
 
 @Component({
-  selector: 'app-corona',
-  templateUrl: './corona.component.html',
-  styleUrls: ['./corona.component.scss'],
+    selector: 'app-corona',
+    templateUrl: './corona.component.html',
+    styleUrls: ['./corona.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CoronaComponent implements OnInit {
   faSpinner = faSpinner;

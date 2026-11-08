@@ -40,7 +40,7 @@ Since 2022:
 
 ## Getting started for developers
 
-- [Install NodeJS](https://nodejs.org/). Hint: eventually install and use [nvm](https://medium.com/@Joachim8675309/installing-node-js-with-nvm-4dc469c977d9) for easy installing and/or switching between node versions
+- [At this moment NodeJS 18.18.0](https://nodejs.org/). Hint: eventually install and use [nvm](https://medium.com/@Joachim8675309/installing-node-js-with-nvm-4dc469c977d9) for easy installing and/or switching between node versions
 - Clone this repository: `git clone https://github.com/JosVermoesen/ngb-covidstats`
 - Run `npm install` inside the project root.
 - Run `ng serve` in a terminal from the project root.
@@ -52,7 +52,7 @@ Since 2022:
 - <https://github.com/coreybutler/nvm-windows/releases>
 - <https://gist.github.com/LayZeeDK/c822cc812f75bb07b7c55d07ba2719b3>
 - [Visual Studio Code](https://code.visualstudio.com/)
-- [Angular CLI](https://www.npmjs.com/package/@angular/cli): `npm i -g @angular/cli`
+- [Angular CLI](https://www.npmjs.com/package/@angular/cli): `npm i -g @angular/cli@16`
 
 ## NPM packages used for this app
 
