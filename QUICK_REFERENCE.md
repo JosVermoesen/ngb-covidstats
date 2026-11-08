@@ -3,6 +3,7 @@
 ## Before vs After Patterns
 
 ### Signal State Management
+
 ```typescript
 // BEFORE
 export class MyComponent {
@@ -24,6 +25,7 @@ export class MyComponent {
 ```
 
 ### Template Usage
+
 ```html
 <!-- BEFORE -->
 <div>Count: {{ count }}</div>
@@ -39,6 +41,7 @@ export class MyComponent {
 ```
 
 ### Change Detection Strategy
+
 ```typescript
 // BEFORE - No change detection specified (default: Eager)
 @Component({
@@ -55,6 +58,7 @@ export class MyComponent {
 ```
 
 ### Control Flow
+
 ```html
 <!-- BEFORE -->
 <div *ngIf="loading">Loading...</div>
@@ -96,6 +100,7 @@ export class MyComponent {
 ## Common Patterns
 
 ### Input Properties
+
 ```typescript
 export class MyComponent {
   @Input() data: string = '';
@@ -104,6 +109,7 @@ export class MyComponent {
 ```
 
 ### Computed Values
+
 ```typescript
 export class MyComponent {
   count = signal(0);
@@ -112,6 +118,7 @@ export class MyComponent {
 ```
 
 ### Side Effects
+
 ```typescript
 export class MyComponent {
   selectedCountry = signal('Germany');
@@ -126,6 +133,7 @@ export class MyComponent {
 ```
 
 ### Observables with Signals
+
 ```typescript
 export class MyComponent {
   data = signal<DataType | null>(null);
@@ -145,13 +153,12 @@ export class MyComponent {
 }
 ```
 
-## File Locations
+### File Locations
 
-- **Core Setup**: `src/main.ts`, `src/app/app.module.ts`
+- **Core Setup**: `src/main.ts`, `src/app/app.module.ts`, `src/app/app-routing.module.ts`
 - **Services**: `src/app/global/language.service.ts` (example)
 - **Components**: `src/app/modules/*/` (all feature components)
 - **Templates**: `src/app/modules/corona/corona.component.html` (example modern syntax)
-- **Providers**: `src/app/providers/language.provider.ts` (example)
 
 ## Commands
 
@@ -172,7 +179,7 @@ ng lint                   # Run linter
 ## Performance Gains
 
 | Metric | Before | After | Improvement |
-|--------|--------|-------|-------------|
+| -------- | -------- | ------- | ------------- |
 | Change Detection | Eager (all components) | OnPush (all) | ~70% reduction |
 | State Management | Mixed | Signals (consistent) | Better tracking |
 | Bundle Size | ~1.2 MB | ~1.16 MB | 3% smaller |
@@ -203,6 +210,7 @@ ng lint                   # Run linter
 ## One-File Summary
 
 Every component now has:
+
 ```typescript
 import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
 
