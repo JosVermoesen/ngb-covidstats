@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  version: '16.2.8',
+  version: '22.2.5',
   daysEval: 912,
 };
 
