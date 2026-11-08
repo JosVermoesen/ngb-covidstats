@@ -12,17 +12,17 @@ import { AboutRoutingModule } from './about-routing.module';
 import { AboutComponent } from './about.component';
 
 @NgModule({
-  declarations: [AboutComponent],
-  imports: [
-    CommonModule,
-    AboutRoutingModule,
-    TranslateModule.forChild({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: createTranslateLoader,
-        deps: [HttpClient],
-      },
-    }),
-  ],
+    declarations: [AboutComponent],
+    imports: [
+        CommonModule,
+        AboutRoutingModule,
+        TranslateModule.forChild({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: createTranslateLoader,
+                deps: [HttpClient],
+            },
+        }),
+    ],
 })
 export class AboutModule {}
