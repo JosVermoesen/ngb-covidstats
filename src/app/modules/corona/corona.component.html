@@ -51,37 +51,37 @@
                         </p>
                         <p>
                           {{ "CORONA.WorldLabelRecovered" | translate }}:
-                          {{ coronaGlobalNumbers.recovered }}
+                          {{ coronaGlobalNumbers()!.recovered }}
                         </p>
                         <p>
                           {{ "CORONA.WorldLabelActive" | translate }}:
-                          {{ coronaGlobalNumbers.active }}
+                          {{ coronaGlobalNumbers()!.active }}
                         </p>
                         <p>
                           {{ "CORONA.WorldLabelCritical" | translate }}:
-                          {{ coronaGlobalNumbers.critical }}
+                          {{ coronaGlobalNumbers()!.critical }}
                         </p>
                         <p>
                           {{ "CORONA.WorldLabelCasesPerOneMillion" | translate }}:
-                          {{ coronaGlobalNumbers.casesPerOneMillion }}
+                          {{ coronaGlobalNumbers()!.casesPerOneMillion }}
                         </p>
                         <p>
                           {{
                           "CORONA.WorldLabelDeathsPerOneMillion" | translate
                           }}:
-                          {{ coronaGlobalNumbers.deathsPerOneMillion }}
+                          {{ coronaGlobalNumbers()!.deathsPerOneMillion }}
                         </p>
                         <p>
                           {{ "CORONA.WorldLabelTests" | translate }}:
-                          {{ coronaGlobalNumbers.tests }}
+                          {{ coronaGlobalNumbers()!.tests }}
                         </p>
                         <p>
                           {{ "CORONA.WorldLabelTestsPerOneMillion" | translate }}:
-                          {{ coronaGlobalNumbers.testsPerOneMillion }}
+                          {{ coronaGlobalNumbers()!.testsPerOneMillion }}
                         </p>
                         <p>
                           {{ "CORONA.WorldLabelAffectedCountries" | translate }}:
-                          {{ coronaGlobalNumbers.affectedCountries }}
+                          {{ coronaGlobalNumbers()!.affectedCountries }}
                         </p>
                       </div>
                     }
@@ -93,7 +93,7 @@
 
           <tab
             id="status"
-            heading="{{ selectedCountryName }} {{
+            heading="{{ selectedCountryName() }} {{
               'CORONA.TabCountryStatus' | translate
             }} "
             (selectTab)="onSelect($event)"
@@ -118,12 +118,12 @@
                           </option>
                         }
                       </select>
-                      @if (!countryHistorical) {
+                      @if (!countryHistorical()) {
                         <div
                           class="input-group-append"
                           >
                           <button
-                            (click)="getHistory(selectedCountryName)"
+                            (click)="getHistory(selectedCountryName())"
                             class="btn btn-primary"
                             type="button"
                             id="button-countrydetail"
@@ -144,55 +144,55 @@
                     </div>
                   </div>
 
-                  @if (coronaCountry) {
+                  @if (coronaCountry()) {
                     <div class="py-3">
                       <p>
                         {{ "CORONA.LabelCountryLatestUpdate" | translate }}:<br />
-                        {{ countryLastUpdate }}
+                        {{ countryLastUpdate() }}
                       </p>
                       <p>
                         {{ "CORONA.LabelCountryTodayCases" | translate }}:
-                        {{ coronaCountry.todayCases }}
+                        {{ coronaCountry()!.todayCases }}
                       </p>
                       <p>
                         {{ "CORONA.LabelCountryTodayDeaths" | translate }}:
-                        {{ coronaCountry.todayDeaths }}
+                        {{ coronaCountry()!.todayDeaths }}
                       </p>
                       <p>
                         {{ "CORONA.LabelCountryTotalCases" | translate }}:
-                        {{ coronaCountry.cases }}
+                        {{ coronaCountry()!.cases }}
                       </p>
                       <p>
                         {{ "CORONA.LabelCountryTotalDeaths" | translate }}:
-                        {{ coronaCountry.deaths }}
+                        {{ coronaCountry()!.deaths }}
                       </p>
                       <p>
                         {{ "CORONA.LabelCountryTotalRecovered" | translate }}:
-                        {{ coronaCountry.recovered }}
+                        {{ coronaCountry()!.recovered }}
                       </p>
                       <p>
                         {{ "CORONA.LabelCountryTotalActive" | translate }}:
-                        {{ coronaCountry.active }}
+                        {{ coronaCountry()!.active }}
                       </p>
                       <p>
                         {{ "CORONA.LabelCountryTotalCritical" | translate }}:
-                        {{ coronaCountry.critical }}
+                        {{ coronaCountry()!.critical }}
                       </p>
                       <p>
                         {{ "CORONA.LabelCountryPerMillionCases" | translate }}:
-                        {{ coronaCountry.casesPerOneMillion }}
+                        {{ coronaCountry()!.casesPerOneMillion }}
                       </p>
                       <p>
                         {{ "CORONA.LabelCountryPerMillionDeaths" | translate }}:
-                        {{ coronaCountry.deathsPerOneMillion }}
+                        {{ coronaCountry()!.deathsPerOneMillion }}
                       </p>
                       <p>
                         {{ "CORONA.LabelCountryTests" | translate }}:
-                        {{ coronaCountry.tests }}
+                        {{ coronaCountry()!.tests }}
                       </p>
                       <p>
                         {{ "CORONA.LabelCountryPerMillionTests" | translate }}:
-                        {{ coronaCountry.testsPerOneMillion }}
+                        {{ coronaCountry()!.testsPerOneMillion }}
                       </p>
                     </div>
                   }
@@ -201,11 +201,11 @@
             </div>
           </tab>
 
-          @if (countryHistorical) {
+          @if (countryHistorical()) {
             <tab
               id="graph"
             heading="{{ 'CORONA.TabGraphData' | translate }} {{
-              selectedCountryName
+              selectedCountryName()
             }}"
               (selectTab)="onSelect($event)"
               >
@@ -213,8 +213,8 @@
                 <div style="display: block">
                   <canvas
                     baseChart
-                    [datasets]="coronaChartData"
-                    [labels]="coronaChartLabels"
+                    [datasets]="coronaChartData()"
+                    [labels]="coronaChartLabels()"
                     [options]="coronaChartOptions"
                     [legend]="coronaChartLegend"
                     [type]="coronaChartType"
@@ -225,18 +225,18 @@
             </tab>
           }
 
-          @if (evalAvailable) {
+          @if (evalAvailable()) {
             <tab
             heading="{{ 'CORONA.TabGraphEvalData' | translate }} {{
-              selectedCountryName
+              selectedCountryName()
             }}"
               >
               <div>
                 <div style="display: block">
                   <canvas
                     baseChart
-                    [datasets]="coronaEvalChartData"
-                    [labels]="coronaChartLabels"
+                    [datasets]="coronaEvalChartData()"
+                    [labels]="coronaChartLabels()"
                     [options]="coronaChartOptions"
                     [legend]="coronaChartLegend"
                     [type]="coronaChartType"
